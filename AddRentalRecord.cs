@@ -108,10 +108,6 @@ namespace CarRentalApp
             cbTypeOfCar.DataSource = cars;
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-        }
+      
     }
 }
