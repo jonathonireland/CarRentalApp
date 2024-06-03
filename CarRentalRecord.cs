@@ -20,5 +20,7 @@ namespace CarRentalApp
         public Nullable<System.DateTime> DateReturned { get; set; }
         public Nullable<decimal> Cost { get; set; }
         public Nullable<int> TypeOfCarId { get; set; }
+
+        public virtual TypesOfCar TypesOfCar { get; set; }
     }
 }

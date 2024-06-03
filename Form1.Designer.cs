@@ -83,7 +83,7 @@
             // 
             // dpDateRented
             // 
-            this.dpDateRented.Location = new System.Drawing.Point(39, 180);
+            this.dpDateRented.Location = new System.Drawing.Point(36, 196);
             this.dpDateRented.Name = "dpDateRented";
             this.dpDateRented.Size = new System.Drawing.Size(200, 20);
             this.dpDateRented.TabIndex = 5;

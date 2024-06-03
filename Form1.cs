@@ -67,6 +67,18 @@ namespace CarRentalApp
                 // can be if(isValid == true) 
                 if (isValid)
                 {
+                    var rentalRecord = new CarRentalRecord();
+                    rentalRecord.CustomerName = customerName;
+                    rentalRecord.DateRented = dateOut;
+                    rentalRecord.DateReturned = dateIn;
+                    rentalRecord.Cost = (decimal)cost;
+                    rentalRecord.TypeOfCarId = (int)cbTypeOfCar.SelectedValue;
+
+                    carRentalEntities.CarRentalRecords.Add(rentalRecord);
+
+                    carRentalEntities.SaveChanges();
+
+
                     MessageBox.Show(
                         $"Customer Name: {customerName}\n\r" +
                         $"Date Rented: {dateOut}\n\r" +
