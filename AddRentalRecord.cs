@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace CarRentalApp
 {
-    public partial class Form1 : Form
+    public partial class AddRentalRecord : Form
     {
 
         private readonly CarRentalEntities carRentalEntities;
        
-        public Form1()
+        public AddRentalRecord()
         {
             InitializeComponent();
             carRentalEntities = new CarRentalEntities();
@@ -106,6 +106,12 @@ namespace CarRentalApp
             cbTypeOfCar.DisplayMember = "Name";
             cbTypeOfCar.ValueMember = "id";
             cbTypeOfCar.DataSource = cars;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
         }
     }
 }
