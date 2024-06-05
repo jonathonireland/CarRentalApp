@@ -52,12 +52,12 @@
             this.gvVehicleList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvVehicleList.Location = new System.Drawing.Point(12, 65);
             this.gvVehicleList.Name = "gvVehicleList";
-            this.gvVehicleList.Size = new System.Drawing.Size(383, 373);
+            this.gvVehicleList.Size = new System.Drawing.Size(953, 393);
             this.gvVehicleList.TabIndex = 2;
             // 
             // btnAddNewCar
             // 
-            this.btnAddNewCar.Location = new System.Drawing.Point(566, 65);
+            this.btnAddNewCar.Location = new System.Drawing.Point(12, 478);
             this.btnAddNewCar.Name = "btnAddNewCar";
             this.btnAddNewCar.Size = new System.Drawing.Size(93, 23);
             this.btnAddNewCar.TabIndex = 3;
@@ -67,7 +67,7 @@
             // 
             // btnEditCar
             // 
-            this.btnEditCar.Location = new System.Drawing.Point(566, 235);
+            this.btnEditCar.Location = new System.Drawing.Point(111, 478);
             this.btnEditCar.Name = "btnEditCar";
             this.btnEditCar.Size = new System.Drawing.Size(75, 23);
             this.btnEditCar.TabIndex = 4;
@@ -77,7 +77,7 @@
             // 
             // btnDeleteCar
             // 
-            this.btnDeleteCar.Location = new System.Drawing.Point(566, 415);
+            this.btnDeleteCar.Location = new System.Drawing.Point(192, 478);
             this.btnDeleteCar.Name = "btnDeleteCar";
             this.btnDeleteCar.Size = new System.Drawing.Size(75, 23);
             this.btnDeleteCar.TabIndex = 5;
@@ -89,7 +89,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(977, 690);
             this.Controls.Add(this.btnDeleteCar);
             this.Controls.Add(this.btnEditCar);
             this.Controls.Add(this.btnAddNewCar);
