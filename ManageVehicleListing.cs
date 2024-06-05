@@ -46,38 +46,60 @@ namespace CarRentalApp
 
         private void btnEditCar_Click(object sender, EventArgs e)
         {
-            // Get Id of selected Row
-            var id = (int)gvVehicleList.SelectedRows[0].Cells["Id"].Value;
+            try
+            {
+                // Get Id of selected Row
+                var id = (int)gvVehicleList.SelectedRows[0].Cells["Id"].Value;
 
-            // Query database for record
-            var car = _db.TypesOfCars.FirstOrDefault(q => q.id == id);
+                // Query database for record
+                var car = _db.TypesOfCars.FirstOrDefault(q => q.id == id);
             
-            // Launch Add Edit Vehicle window with data
-            var addEditVehicle = new AddEditVehicle(car);
-            addEditVehicle.MdiParent = this.MdiParent;
-            addEditVehicle.Show();
+                // Launch Add Edit Vehicle window with data
+                var addEditVehicle = new AddEditVehicle(car);
+                addEditVehicle.MdiParent = this.MdiParent;
+                addEditVehicle.Show();
+            } 
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
 
         private void btnAddNewCar_Click(object sender, EventArgs e)
         {
-            AddEditVehicle addEditVehicle = new AddEditVehicle();
-            addEditVehicle.MdiParent = this.MdiParent;
-            addEditVehicle.Show();
+            try 
+            { 
+            
+                AddEditVehicle addEditVehicle = new AddEditVehicle();
+                addEditVehicle.MdiParent = this.MdiParent;
+                addEditVehicle.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
 
         private void btnDeleteCar_Click(object sender, EventArgs e)
         {
-            // Get Id of selected Row
-            var id = (int)gvVehicleList.SelectedRows[0].Cells["Id"].Value;
+            try
+            {
+                // Get Id of selected Row
+                var id = (int)gvVehicleList.SelectedRows[0].Cells["Id"].Value;
 
-            // Query database for record
-            var car = _db.TypesOfCars.FirstOrDefault(q => q.id == id);
+                // Query database for record
+                var car = _db.TypesOfCars.FirstOrDefault(q => q.id == id);
 
-            // delete vehicle from table
-            _db.TypesOfCars.Remove(car);
-            _db.SaveChanges();
+                // delete vehicle from table
+                _db.TypesOfCars.Remove(car);
+                _db.SaveChanges();
 
-            gvVehicleList.Refresh();
+                gvVehicleList.Refresh();
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
