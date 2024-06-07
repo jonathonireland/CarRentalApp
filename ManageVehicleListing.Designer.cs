@@ -41,7 +41,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Sitka Small", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(209, 19);
+            this.label1.Location = new System.Drawing.Point(314, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(377, 43);
             this.label1.TabIndex = 1;
@@ -108,7 +108,7 @@
             this.Controls.Add(this.gvVehicleList);
             this.Controls.Add(this.label1);
             this.Name = "ManageVehicleListing";
-            this.Text = "ManageVehicleListing";
+            this.Text = "Manage Vehicle Listing";
             this.Load += new System.EventHandler(this.ManageVehicleListing_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gvVehicleList)).EndInit();
             this.ResumeLayout(false);

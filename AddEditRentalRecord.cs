@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -10,15 +11,45 @@ using System.Windows.Forms;
 
 namespace CarRentalApp
 {
-    public partial class AddRentalRecord : Form
+    public partial class AddEditRentalRecord : Form
     {
-
-        private readonly CarRentalEntities carRentalEntities;
+        private bool isEditMode;
+        private readonly CarRentalEntities _db;
        
-        public AddRentalRecord()
+        public AddEditRentalRecord()
         {
             InitializeComponent();
-            carRentalEntities = new CarRentalEntities();
+            lblTitle.Text = "Add New Record";
+            this.Text = "Add New Record";
+            isEditMode = false;
+            _db = new CarRentalEntities();
+        }
+
+        public AddEditRentalRecord(CarRentalRecord recordToEdit)
+        {
+            InitializeComponent();
+            lblTitle.Text = "Edit Rental Record";
+            this.Text = "Edit Rental Record";
+            if (recordToEdit == null)
+            {
+                MessageBox.Show("Please ensure that you selected a valid record to edit.");
+                Close();
+            }
+            else
+            {
+                isEditMode = true;
+                _db = new CarRentalEntities();
+                PopulateFields(recordToEdit);
+            }
+        }
+
+        private void PopulateFields(CarRentalRecord recordToEdit)
+        {
+            tbCustomerName.Text = recordToEdit.CustomerName;
+            dpDateRented.Value = (DateTime)recordToEdit.DateRented;
+            dpDateReturned.Value = (DateTime)recordToEdit.DateReturned;
+            tbCost.Text = recordToEdit.Cost.ToString();
+            lblRecordId.Text = recordToEdit.id.ToString();
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -63,21 +94,28 @@ namespace CarRentalApp
                     errorMessage += "Illegal Date Selection \n\r";
                     isValid = false;
                 }
-            
+
                 // can be if(isValid == true) 
                 if (isValid)
                 {
                     var rentalRecord = new CarRentalRecord();
+
+                    if (isEditMode)
+                    {
+                        var id = int.Parse(lblRecordId.Text);
+                        rentalRecord = _db.CarRentalRecords.FirstOrDefault(q => q.id == id);
+                    }
+
                     rentalRecord.CustomerName = customerName;
                     rentalRecord.DateRented = dateOut;
                     rentalRecord.DateReturned = dateIn;
                     rentalRecord.Cost = (decimal)cost;
                     rentalRecord.TypeOfCarId = (int)cbTypeOfCar.SelectedValue;
+                    
+                    if(!isEditMode)
+                        _db.CarRentalRecords.Add(rentalRecord);
 
-                    carRentalEntities.CarRentalRecords.Add(rentalRecord);
-
-                    carRentalEntities.SaveChanges();
-
+                    _db.SaveChanges();
 
                     MessageBox.Show(
                         $"Customer Name: {customerName}\n\r" +
@@ -86,6 +124,9 @@ namespace CarRentalApp
                         $"Cost: {cost}\n\r" +
                         $"Car Type: {carType}\n\r" +
                         $"THANK YOU FOR YOUR RENTAL!!");
+
+                    Close();
+
                 } 
                 else
                 {
@@ -104,7 +145,7 @@ namespace CarRentalApp
         {
             //Select * From Rental TypesOfCars
             /*var cars = carRentalEntities.TypesOfCars.ToList();*/
-            var cars = carRentalEntities.TypesOfCars
+            var cars = _db.TypesOfCars
                 .Select(q => new { Id = q.id, Name = q.Make + " " + q.Model })
                 .ToList();
             cbTypeOfCar.DisplayMember = "Name";
