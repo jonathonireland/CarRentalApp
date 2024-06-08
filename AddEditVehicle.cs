@@ -13,22 +13,25 @@ namespace CarRentalApp
     public partial class AddEditVehicle : Form
     {
         private bool isEditMode;
+        private ManageVehicleListing _manageVehicleListing;
         private readonly CarRentalEntities _db;
-        public AddEditVehicle()
+        public AddEditVehicle(ManageVehicleListing manageVehicleListing = null)
         {
             InitializeComponent();
             lblTitle.Text = "Add New Vehicle";
             this.Text = "Add New Vehicle";
             isEditMode = false;
+            _manageVehicleListing = manageVehicleListing;
             _db = new CarRentalEntities();
 
         }
 
-        public AddEditVehicle(TypesOfCar carToEdit) 
+        public AddEditVehicle(TypesOfCar carToEdit, ManageVehicleListing manageVehicleListing = null) 
         {
             InitializeComponent();
             lblTitle.Text = "Edit Vehicle";
             this.Text = "Edit Vehicle";
+            _manageVehicleListing = manageVehicleListing;
             if(carToEdit == null)
             {
                 MessageBox.Show("Please ensure that you selected a valid record to edit.");
@@ -66,8 +69,6 @@ namespace CarRentalApp
                 car.Year = int.Parse(tbYear.Text);
                 car.VIN = tbVIN.Text;
                 car.LicensePlateNumber = tbLicensePlateNumber.Text;
-
-                _db.SaveChanges();
             }
             else 
             {
@@ -82,9 +83,13 @@ namespace CarRentalApp
                 };
 
                 _db.TypesOfCars.Add(newCar);
-                _db.SaveChanges();
-
             }
+            
+            _db.SaveChanges();
+            _manageVehicleListing.PopulateGrid();
+            MessageBox.Show("Insert Operation Completed. Refresh Grid to see Changes");
+            Close();
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

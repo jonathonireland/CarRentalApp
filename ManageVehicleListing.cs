@@ -55,7 +55,7 @@ namespace CarRentalApp
                 var car = _db.TypesOfCars.FirstOrDefault(q => q.id == id);
             
                 // Launch Add Edit Vehicle window with data
-                var addEditVehicle = new AddEditVehicle(car);
+                var addEditVehicle = new AddEditVehicle(car, this);
                 addEditVehicle.MdiParent = this.MdiParent;
                 addEditVehicle.Show();
             } 
@@ -70,7 +70,7 @@ namespace CarRentalApp
             try 
             { 
             
-                AddEditVehicle addEditVehicle = new AddEditVehicle();
+                AddEditVehicle addEditVehicle = new AddEditVehicle(this);
                 addEditVehicle.MdiParent = this.MdiParent;
                 addEditVehicle.Show();
             }
@@ -90,11 +90,18 @@ namespace CarRentalApp
                 // Query database for record
                 var car = _db.TypesOfCars.FirstOrDefault(q => q.id == id);
 
-                // delete vehicle from table
-                _db.TypesOfCars.Remove(car);
-                _db.SaveChanges();
+                DialogResult dr = MessageBox.Show("Are you Sure You Want To Delete This Record?",
+                    "Delete", MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Warning);
+                
+                if(dr == DialogResult.Yes)
+                {
 
-                gvVehicleList.Refresh();
+                    // delete vehicle from table
+                    _db.TypesOfCars.Remove(car);
+                    _db.SaveChanges();
+                }
+                PopulateGrid();
             }
             catch (Exception ex) 
             {
@@ -108,7 +115,7 @@ namespace CarRentalApp
             PopulateGrid();
         }
 
-        private void PopulateGrid()
+        public void PopulateGrid()
         {
             // Select a custom model collection of cars from database
             var cars = _db.TypesOfCars

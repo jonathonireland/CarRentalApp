@@ -19,20 +19,22 @@ namespace CarRentalApp
 
         private void addRentalRecordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var addRentalRecord = new AddEditRentalRecord
-            {
-                MdiParent = this
-            };
-            addRentalRecord.Show();
+            var addRentalRecord = new AddEditRentalRecord();
+            addRentalRecord.ShowDialog();
+            addRentalRecord.MdiParent = this;
         }
 
         private void editVehicleListingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var vehicleListing = new ManageVehicleListing
+            var OpenForms = Application.OpenForms.Cast<Form>();
+            var isOpen = OpenForms.Any(q => q.Name == "ManageVehicleListing");
+            if (!isOpen)
             {
-                MdiParent = this
-            };
-            vehicleListing.Show();
+                var vehicleListing = new ManageVehicleListing();
+                vehicleListing.MdiParent = this;
+                vehicleListing.Show();
+            }
+            
         }
 
         private void viewArchiveToolStripMenuItem_Click(object sender, EventArgs e)
