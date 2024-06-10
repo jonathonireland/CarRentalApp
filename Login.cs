@@ -54,7 +54,9 @@ namespace CarRentalApp
                 } 
                 else
                 {
-                    var mainWindow = new MainWindow(this);
+                    var role = user.UserRoles.FirstOrDefault();
+                    var roleShortName = role.Role.shortname;
+                    var mainWindow = new MainWindow(this,roleShortName);
                     mainWindow.Show();
                     Hide();
                 }
