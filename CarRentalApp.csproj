@@ -111,6 +111,7 @@
     <Compile Include="AddEditVehicle.Designer.cs">
       <DependentUpon>AddEditVehicle.cs</DependentUpon>
     </Compile>
+    <Compile Include="Class1.cs" />
     <Compile Include="ManageUsers.cs">
       <SubType>Form</SubType>
     </Compile>

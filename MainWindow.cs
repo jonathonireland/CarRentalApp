@@ -13,18 +13,20 @@ namespace CarRentalApp
     public partial class MainWindow : Form
     {
         private Login _login;
-        public string _RoleName;
+        public string _roleName;
+        public User _user;
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        public MainWindow(Login login, string roleShortName)
+        public MainWindow(Login login, User user)
         {
             InitializeComponent();
             _login = login;
-            _RoleName = roleShortName;
+            _user = user;
+            _roleName = user.UserRoles.FirstOrDefault().Role.shortname;
         }
 
         private void addRentalRecordToolStripMenuItem_Click(object sender, EventArgs e)
@@ -73,7 +75,7 @@ namespace CarRentalApp
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            if (_RoleName != "admin") 
+            if (_roleName != "admin") 
             {
                 manageUsersToolStripMenuItem.Visible = false;    
             }

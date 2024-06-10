@@ -45,6 +45,7 @@
             this.btnRefresh.TabIndex = 18;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnDeactivateUser
             // 
@@ -54,6 +55,7 @@
             this.btnDeactivateUser.TabIndex = 17;
             this.btnDeactivateUser.Text = "Deactivate User";
             this.btnDeactivateUser.UseVisualStyleBackColor = true;
+            this.btnDeactivateUser.Click += new System.EventHandler(this.btnDeactivateUser_Click);
             // 
             // btnResetPassword
             // 
@@ -63,6 +65,7 @@
             this.btnResetPassword.TabIndex = 16;
             this.btnResetPassword.Text = "Reset Password";
             this.btnResetPassword.UseVisualStyleBackColor = true;
+            this.btnResetPassword.Click += new System.EventHandler(this.btnResetPassword_Click);
             // 
             // btnAddNewUser
             // 
@@ -72,6 +75,7 @@
             this.btnAddNewUser.TabIndex = 15;
             this.btnAddNewUser.Text = "Add New User";
             this.btnAddNewUser.UseVisualStyleBackColor = true;
+            this.btnAddNewUser.Click += new System.EventHandler(this.btnAddNewUser_Click);
             // 
             // gvUserList
             // 
