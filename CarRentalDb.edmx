@@ -35,8 +35,6 @@
           <Property Name="LicensePlateNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="Year" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CarRental.dbo.UserRoles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="UserRoles">
           <Key>
             <PropertyRef Name="id" />
@@ -94,14 +92,8 @@ warning 6002: The table/view 'CarRental.dbo.UserRoles' does not have a primary k
           <EntitySet Name="CarRentalRecord" EntityType="Self.CarRentalRecord" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypesOfCars" EntityType="Self.TypesOfCars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [UserRoles].[id] AS [id], 
-    [UserRoles].[userid] AS [userid], 
-    [UserRoles].[roleid] AS [roleid]
-    FROM [dbo].[UserRoles] AS [UserRoles]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_CarRentalRecord_TypesOfCars" Association="Self.FK_CarRentalRecord_TypesOfCars">
             <End Role="TypesOfCars" EntitySet="TypesOfCars" />
             <End Role="CarRentalRecord" EntitySet="CarRentalRecord" />
@@ -127,8 +119,8 @@ warning 6002: The table/view 'CarRental.dbo.UserRoles' does not have a primary k
             <End Role="CarRentalRecord" EntitySet="CarRentalRecords" />
           </AssociationSet>
           <EntitySet Name="Roles" EntityType="CarRentalModel.Role" />
-          <EntitySet Name="Users" EntityType="CarRentalModel.User" />
           <EntitySet Name="UserRoles" EntityType="CarRentalModel.UserRole" />
+          <EntitySet Name="Users" EntityType="CarRentalModel.User" />
           <AssociationSet Name="FK_UserRoles_Roles" Association="CarRentalModel.FK_UserRoles_Roles">
             <End Role="Role" EntitySet="Roles" />
             <End Role="UserRole" EntitySet="UserRoles" />
@@ -137,7 +129,7 @@ warning 6002: The table/view 'CarRental.dbo.UserRoles' does not have a primary k
             <End Role="User" EntitySet="Users" />
             <End Role="UserRole" EntitySet="UserRoles" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="CarRentalRecord">
           <Key>
             <PropertyRef Name="id" />
@@ -183,16 +175,6 @@ warning 6002: The table/view 'CarRental.dbo.UserRoles' does not have a primary k
           <Property Name="shortname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserRoles" Relationship="CarRentalModel.FK_UserRoles_Roles" FromRole="Role" ToRole="UserRole" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="isActive" Type="Boolean" />
-          <NavigationProperty Name="UserRoles" Relationship="CarRentalModel.FK_UserRoles_Users" FromRole="User" ToRole="UserRole" />
-        </EntityType>
         <EntityType Name="UserRole">
           <Key>
             <PropertyRef Name="id" />
@@ -202,6 +184,16 @@ warning 6002: The table/view 'CarRental.dbo.UserRoles' does not have a primary k
           <Property Name="roleid" Type="Int32" />
           <NavigationProperty Name="Role" Relationship="CarRentalModel.FK_UserRoles_Roles" FromRole="UserRole" ToRole="Role" />
           <NavigationProperty Name="User" Relationship="CarRentalModel.FK_UserRoles_Users" FromRole="UserRole" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="isActive" Type="Boolean" />
+          <NavigationProperty Name="UserRoles" Relationship="CarRentalModel.FK_UserRoles_Users" FromRole="User" ToRole="UserRole" />
         </EntityType>
         <Association Name="FK_UserRoles_Roles">
           <End Type="CarRentalModel.Role" Role="Role" Multiplicity="0..1" />
@@ -227,7 +219,7 @@ warning 6002: The table/view 'CarRental.dbo.UserRoles' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -266,6 +258,15 @@ warning 6002: The table/view 'CarRental.dbo.UserRoles' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="CarRentalModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRoles">
+                <ScalarProperty Name="roleid" ColumnName="roleid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="CarRentalModel.User">
               <MappingFragment StoreEntitySet="Users">
@@ -276,16 +277,7 @@ warning 6002: The table/view 'CarRental.dbo.UserRoles' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserRoles">
-            <EntityTypeMapping TypeName="CarRentalModel.UserRole">
-              <MappingFragment StoreEntitySet="UserRoles">
-                <ScalarProperty Name="roleid" ColumnName="roleid" />
-                <ScalarProperty Name="userid" ColumnName="userid" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

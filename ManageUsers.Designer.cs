@@ -109,6 +109,7 @@
             this.Controls.Add(this.lblTitle);
             this.Name = "ManageUsers";
             this.Text = "Manage Users";
+            this.Load += new System.EventHandler(this.ManageUsers_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gvUserList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

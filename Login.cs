@@ -53,7 +53,7 @@ namespace CarRentalApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong. Please try again.");
+                MessageBox.Show($"Something went wrong. Please try again. {ex}");
             }
         }
     }

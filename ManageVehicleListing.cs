@@ -119,15 +119,17 @@ namespace CarRentalApp
         {
             // Select a custom model collection of cars from database
             var cars = _db.TypesOfCars
-                .Select(q => new
-                {
-                    Make = q.Make,
-                    Model = q.Model,
-                    VIN = q.VIN,
-                    Year = q.Year,
-                    LicensePlateNumber = q.LicensePlateNumber,
-                    q.id
-                })
+                .Select(
+                    q => new
+                    {
+                        Make = q.Make,
+                        Model = q.Model,
+                        VIN = q.VIN,
+                        Year = q.Year,
+                        LicensePlateNumber = q.LicensePlateNumber,
+                        q.id
+                    }
+                )
                 .ToList();
             gvVehicleList.DataSource = cars;
             gvVehicleList.Columns[4].HeaderText = "License Plate Number";
