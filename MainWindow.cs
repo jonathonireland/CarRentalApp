@@ -38,10 +38,7 @@ namespace CarRentalApp
 
         private void editVehicleListingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var OpenForms = Application.OpenForms.Cast<Form>();
-            var isOpen = OpenForms.Any(q => q.Name == "ManageVehicleListing");
-            if (!isOpen)
-            {
+            if (!Utils.FormIsOpen("ManageVehicleListing")) {
                 var vehicleListing = new ManageVehicleListing();
                 vehicleListing.MdiParent = this;
                 vehicleListing.Show();
@@ -64,9 +61,8 @@ namespace CarRentalApp
 
         private void manageUsersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var OpenForms = Application.OpenForms.Cast<Form>();
-            var isUsersOpen = OpenForms.Any(q => q.Name == "ManageUsers");
-            if (!isUsersOpen) { 
+            if (!Utils.FormIsOpen("ManageUsers"))
+            {
                 var manageUsers = new ManageUsers();
                 manageUsers.MdiParent = this;
                 manageUsers.Show();
